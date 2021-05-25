@@ -1,0 +1,100 @@
+<br>
+<div class="container">
+    <form #createForm="ngForm" (ngSubmit)="createBusinessPartner(createForm)">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="cardName">Full Name</label>
+                <input required type="text" maxlength="20" pattern="^[\u0590-\u05FF -']+$" class="form-control" [(ngModel)]="businessPartner.fullName"
+                    name="inputFullName" #fullName="ngModel">
+                <div *ngIf="fullName.errors?.pattern && fullName.touched && fullName.dirty" class="alert alert-danger">
+                    Full Name is invalid
+                </div>
+                 <div *ngIf="fullName.errors?.required" class="alert alert-danger">
+                    Full Name is required
+                </div>
+            </div>
+
+
+               <div class="form-group col-md-6">
+                <label for="inputidentityCard">Identity Card</label>
+                <input required type="text" maxlength="9" minlength="9" pattern="^[0-9]+$" class="form-control" [(ngModel)]="businessPartner.identityCard"
+                 name="inputidentityCard" #identityCard="ngModel">
+                <div *ngIf="identityCard.errors?.pattern && identityCard.touched && identityCard.dirty" class="alert alert-danger">
+                    Please insert only digits
+                </div>
+                 <div *ngIf="identityCard.errors?.required" class="alert alert-danger">
+                    Identity Card is required
+                </div>
+                <div *ngIf="identityCard.errors?.minlength" class="alert alert-danger">
+                    Please insert 9 digits
+                </div>
+            </div>
+
+             <div class="form-group col-md-6">
+                <label for="inputAddress">Full Name(English)</label>
+                <input type="text" maxlength="15" pattern="^[a-z A-Z -']+$" class="form-control" [(ngModel)]="businessPartner.fullNameEnglish"
+                    name="inputfullNameEnglish" #fullNameEnglish="ngModel">
+                    <div *ngIf="fullNameEnglish.errors?.pattern && fullNameEnglish.touched && fullNameEnglish.dirty" class="alert alert-danger">
+                    Full Name(English) is invalid
+                </div>                 
+            </div>
+
+              <div class="form-group col-md-6">
+                <label for="inputbirthDay">BirthDay</label>
+                <input type="date" required value="2011-08-19" class="form-control" [(ngModel)]="businessPartner.birthDay"
+                 name="inputbirthDay"  #birthDay="ngModel">
+                <div *ngIf="birthDay.errors?.required" class="alert alert-danger">
+                    BirthDay  is required
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="inputCityName">City</label>
+                <select required class="form-control" placeholder="choose city" [(ngModel)]="businessPartner.cityId"
+                    name="inputTitle"  #CityName="ngModel">
+                      <option *ngFor="let city of cities" [value]="city.cityId" >{{city.name}}</option>   
+                      </select>         
+                <div [hidden]="CityName.valid || CityName.pristine" class="alert alert-danger">
+                    City is invalid
+                </div>             
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="BankName">Bank</label>
+                <select required  class="form-control" placeholder="choose bank" [(ngModel)]="businessPartner.bankCode"
+                    name="Bank"  #BankName="ngModel" (change)="onSelectedBank($event)">
+                      <option *ngFor="let bank of banks" [value]="bank.code" >{{bank.description}}</option>   
+                      </select>         
+                <div [hidden]="BankName.valid || BankName.pristine" class="alert alert-danger">
+                    Bank is invalid
+                </div>             
+            </div>
+
+             <div class="form-group col-md-6">
+                <label for="BrunchName">Branch</label>
+                <select required  class="form-control" placeholder="choose brunch" [(ngModel)]="businessPartner.branchNumber"
+                    name="Brunch"  #BranchName="ngModel" [disabled]="!branches" >
+                      <option *ngFor="let branch of branches" [value]="branch.branchNumber" >{{branch.branchName}}</option>   
+                      </select>         
+                <div [hidden]="BranchName.valid || BranchName.pristine" class="alert alert-danger">
+                    Branch is invalid
+                </div>             
+            </div>
+         
+            <div class="form-group col-md-6">
+                <label for="accountNumber">Account Number</label>
+                <input  required type="text" maxlength="10" pattern="^[0-9]+$" class="form-control" [(ngModel)]="businessPartner.accountNumber"
+                    name="inputaccountNumber" #accountNumber="ngModel">
+                    <div *ngIf="accountNumber.errors?.pattern && accountNumber.touched && accountNumber.dirty" class="alert alert-danger">
+                        Account Number is invalid.
+                    </div>
+                     <div *ngIf="accountNumber.errors?.required" class="alert alert-danger">
+                        Account Number is required
+                    </div>
+            </div>
+        </div>
+
+        <button [disabled]="createForm.invalid" type="submit" class="btn btn-primary"
+        >Create Partner</button>
+    </form>
+</div>

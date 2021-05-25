@@ -1,0 +1,36 @@
+<br>
+<div class="container">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border">
+        <thead class="thead-dark">
+            <tr>
+                <th>Full Name</th>
+                <th>Full Name(English)</th>
+                <th>Identity Card</th>
+                <th>BirthDay</th>
+                <th>City</th>
+                <th>Bank </th>
+                <th>Branch </th>
+                <th>Account Number</th>           
+                <th></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let businessPartner of businessPartners">
+              <td>{{businessPartner.fullName}}</td>
+                <td>{{businessPartner.fullNameEnglish}}</td>
+                <td>{{businessPartner.identityCard}}</td>
+                <td>{{businessPartner.birthDay | date}}</td>
+                <td>{{businessPartner.cityName}}</td>
+                <td>{{businessPartner.bankDescription}}</td>
+                <td>{{businessPartner.branchName}}</td>
+                <td>{{businessPartner.accountNumber}}</td>
+                <td>
+                    <button type="button" class="btn btn-outline-danger"
+                        (click)="removeBusinessPartner(businessPartner.identityCard)">
+                        Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
